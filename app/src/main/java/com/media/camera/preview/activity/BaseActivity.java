@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Size;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -62,6 +63,8 @@ public abstract class BaseActivity extends FragmentActivity implements SimpleGes
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mDetector.onTouchEvent(event);
+        Log.d("Touch", "Handled in BaseActivity: " + event.toString());
+        System.out.println("touch handled in baseactivity");
         return super.onTouchEvent(event);
     }
 

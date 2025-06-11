@@ -21,8 +21,7 @@ GLVideoRendererYUV420Filter::GLVideoRendererYUV420Filter() {
     m_fragmentShader.push_back(kFragmentShader12);
 
 }
-GLVideoRendererYUV420Filter* g_renderer = nullptr;
-//g_renderer = new GLVideoRendererYUV420Filter();
+GLVideoRendererYUV420Filter* g_renderer = new GLVideoRendererYUV420Filter();
 
 GLVideoRendererYUV420Filter::~GLVideoRendererYUV420Filter() = default;
 

@@ -34,7 +34,7 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
         System.loadLibrary("media-lib");
     }
     private native void nativeInitRenderer(); // declare the JNI init method
-
+//
     private native void nativeSetThreshold(float value);
 
     @Override
@@ -51,6 +51,7 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
         thresholdSlider.setMax(100);
         thresholdSlider.setProgress(30);  // Match default threshold 0.3f
         nativeInitRenderer(); // <- this must come before the SeekBar is used
+
 
         thresholdSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

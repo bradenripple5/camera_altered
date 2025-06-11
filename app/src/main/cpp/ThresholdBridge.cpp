@@ -17,3 +17,15 @@ Java_com_media_camera_preview_activity_GLActivity_nativeInitRenderer(JNIEnv* env
         LOGE("g_renderer already exists!");
     }
 }
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_media_camera_preview_activity_GLActivity_nativeSetThreshold(JNIEnv *env, jobject thiz,
+                                                                     jfloat value) {
+    if (g_renderer) {
+        g_renderer->setThreshold(value);
+        LOGE("Threshold set to %f", value);
+    } else {
+        LOGE("g_renderer is NULL, cannot set threshold");
+    }
+}
