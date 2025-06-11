@@ -51,7 +51,7 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
         mCameraController = new CameraController(this, mVideoRenderer);
         SeekBar thresholdSlider = findViewById(R.id.threshold_slider);
         SliderFilter sliderFilter = new SliderFilter(value -> {
-            
+
             System.out.println(" in GLActivity, oncreate value = {}"+value);
             nativeSetThreshold(value);
         });
