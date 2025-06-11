@@ -262,6 +262,8 @@ int GLVideoRendererYUV420::createProgram(const char *pVertexSource, const char *
     m_textureULoc = glGetUniformLocation(m_program, "s_textureU");
     m_textureVLoc = glGetUniformLocation(m_program, "s_textureV");
     m_textureSize = glGetUniformLocation(m_program, "texSize");
+    m_thresholdLoc = glGetUniformLocation(m_program, "u_threshold");
+
     m_textureLoc = glGetAttribLocation(m_program, "texcoord");
 
     return m_program;
@@ -303,6 +305,10 @@ GLuint GLVideoRendererYUV420::useProgram() {
             glUniform2fv(m_textureSize, 1, &size[0]);
         }
 
+        if (m_thresholdLoc >= 0) {
+            glUniform1f(m_thresholdLoc, m_threshold);
+        }
+        
         isProgramChanged = false;
     }
 

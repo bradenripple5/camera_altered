@@ -20,7 +20,7 @@ public:
     void setParameters(uint32_t params) override;
 
     uint32_t getParameters() override;
-
+    
     int createProgram(const char *pVertexSource, const char *pFragmentSource) override;
 
 protected:
@@ -29,6 +29,9 @@ protected:
     GLuint m_program;
     GLuint m_vertexShader;
     GLuint m_pixelShader;
+    GLint m_thresholdLoc;
+    float m_threshold = 0.3f;  // Default threshold
+
 private:
     bool createTextures();
 

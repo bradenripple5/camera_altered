@@ -16,6 +16,8 @@ import com.media.camera.preview.R;
 import com.media.camera.preview.controller.CameraController;
 import com.media.camera.preview.gesture.SimpleGestureFilter.SwipeDirection;
 import com.media.camera.preview.render.GLVideoRenderer;
+import android.widget.SeekBar;
+
 
 public class GLActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -28,6 +30,12 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
     private GLVideoRenderer mVideoRenderer;
     private ErrorDialog mErrorDialog;
     private int mFilter = 0;
+    static {
+        System.loadLibrary("media-lib");
+    }
+    private native void nativeInitRenderer(); // declare the JNI init method
+
+    private native void nativeSetThreshold(float value);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,9 +47,36 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
         mVideoRenderer.init(glSurfaceView);
 
         mCameraController = new CameraController(this, mVideoRenderer);
+         SeekBar thresholdSlider = findViewById(R.id.threshold_slider);
+        thresholdSlider.setMax(100);
+        thresholdSlider.setProgress(30);  // Match default threshold 0.3f
+        nativeInitRenderer(); // <- this must come before the SeekBar is used
 
-        setup(glSurfaceView);
+        thresholdSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                System.out.println("onProgressChanged");
+
+                float threshold = progress / 100.0f;
+                nativeSetThreshold(threshold);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+//                System.out.println("onstarttrackingtouch");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+//                System.out.println("onStopTrackingTouch");
+
+            }
+        });
+
+                setup(glSurfaceView);
+
     }
+    
 
     @Override
     public void onDestroy() {

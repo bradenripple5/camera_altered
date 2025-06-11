@@ -347,3 +347,5 @@ public class CameraController implements PreviewFrameHandler {
         return mFacing == CameraCharacteristics.LENS_FACING_FRONT;
     }
 }
+
+

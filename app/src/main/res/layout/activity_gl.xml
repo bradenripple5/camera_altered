@@ -9,4 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <SeekBar
+        android:id="@+id/threshold_slider"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentBottom="true"
+        android:max="100"
+        android:visibility="visible" />
+
 </android.support.constraint.ConstraintLayout>

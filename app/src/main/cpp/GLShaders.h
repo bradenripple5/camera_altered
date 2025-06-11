@@ -14,6 +14,30 @@ static const char kVertexShader[] =
         v_texcoord = transformed.xy + 0.5; \
         gl_Position = position; \
     }";
+// causes all pixels to be green under a threshold set by slider bar
+    static const char kFragmentShader0[] =
+"#version 100\n \
+precision highp float; \
+varying vec2 v_texcoord;\
+uniform lowp sampler2D s_textureY;\
+uniform lowp sampler2D s_textureU;\
+uniform lowp sampler2D s_textureV;\
+uniform float u_threshold;\
+void main() {\
+    float y, u, v, r, g, b,  brightness;\
+    y = texture2D(s_textureY, v_texcoord).r;\
+    u = texture2D(s_textureU, v_texcoord).r - 0.5;\
+    v = texture2D(s_textureV, v_texcoord).r - 0.5;\
+    r = y + 1.403 * v;\
+    g = y - 0.344 * u - 0.714 * v;\
+    b = y + 1.770 * u;\
+    brightness = (r + g + b) / 3.0;\
+    if (brightness < u_threshold) {\
+        gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0); /* green */ \
+    } else {\
+        gl_FragColor = vec4(r, g, b, 1.0);\
+    }\
+}";
 
 // Pixel shader, YUV420 to RGB conversion.
 static const char kFragmentShader[] =
@@ -611,5 +635,7 @@ static const char kFragmentShader12[] =
         }\
         gl_FragColor = vec4(color.rgb, 1.0);\
     }";
+
+
 
 #endif //_GL_SHADER_H_

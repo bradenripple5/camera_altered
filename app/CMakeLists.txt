@@ -30,7 +30,9 @@ add_library( # Sets the name of the library.
         ${SRC_DIR}/GLVideoRendererYUV420.cpp
         ${SRC_DIR}/GLVideoRendererYUV420Filter.cpp
         ${SRC_DIR}/VKUtils.cpp
+        ${SRC_DIR}/ThresholdBridge.cpp
         ${SRC_DIR}/VKVideoRendererYUV420.cpp)
+
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
