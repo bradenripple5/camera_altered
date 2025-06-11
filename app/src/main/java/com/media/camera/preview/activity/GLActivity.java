@@ -16,6 +16,8 @@ import com.media.camera.preview.R;
 import com.media.camera.preview.controller.CameraController;
 import com.media.camera.preview.gesture.SimpleGestureFilter.SwipeDirection;
 import com.media.camera.preview.render.GLVideoRenderer;
+import com.media.camera.preview.slider.SliderFilter;
+
 import android.widget.SeekBar;
 
 
@@ -47,34 +49,17 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
         mVideoRenderer.init(glSurfaceView);
 
         mCameraController = new CameraController(this, mVideoRenderer);
-         SeekBar thresholdSlider = findViewById(R.id.threshold_slider);
-        thresholdSlider.setMax(100);
-        thresholdSlider.setProgress(30);  // Match default threshold 0.3f
+        SeekBar thresholdSlider = findViewById(R.id.threshold_slider);
+        SliderFilter sliderFilter = new SliderFilter(value -> {
+            
+            System.out.println(" in GLActivity, oncreate value = {}"+value);
+            nativeSetThreshold(value);
+        });
+        thresholdSlider.setOnSeekBarChangeListener(sliderFilter);
+
         nativeInitRenderer(); // <- this must come before the SeekBar is used
 
-
-        thresholdSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                System.out.println("onProgressChanged");
-
-                float threshold = progress / 100.0f;
-                nativeSetThreshold(threshold);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-//                System.out.println("onstarttrackingtouch");
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-//                System.out.println("onStopTrackingTouch");
-
-            }
-        });
-
-                setup(glSurfaceView);
+        setup(glSurfaceView);
 
     }
     
