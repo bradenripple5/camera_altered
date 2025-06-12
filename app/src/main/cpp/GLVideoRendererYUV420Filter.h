@@ -6,10 +6,15 @@
 
 class GLVideoRendererYUV420Filter : public GLVideoRendererYUV420 {
 
+
+
+
 public:
     GLVideoRendererYUV420Filter();
 
     ~GLVideoRendererYUV420Filter() override;
+
+    void setEffectIntensity(float value);
 
     void render() override;
 
@@ -20,7 +25,7 @@ public:
 private:
     size_t m_filter = 0;
     size_t m_prevFilter = 0;
-
+    float m_intensity = 0.5f;
     std::vector<const char *> m_fragmentShader;
 };
 

@@ -2,6 +2,7 @@
 #include "GLVideoRendererYUV420.h"
 #include "VKVideoRendererYUV420.h"
 #include "GLVideoRendererYUV420Filter.h"
+#include "Log.h"
 
 VideoRenderer::VideoRenderer()
         : m_frameWidth(0),
@@ -21,6 +22,7 @@ VideoRenderer::~VideoRenderer() = default;
 std::unique_ptr<VideoRenderer> VideoRenderer::create(int type) {
     switch (type) {
         case tYUV420_FILTER:
+            LOGE(" case tYUV420_FILTER return");
             return {std::make_unique<GLVideoRendererYUV420Filter>()};
         case tVK_YUV420:
             return {std::make_unique<VKVideoRendererYUV420>()};

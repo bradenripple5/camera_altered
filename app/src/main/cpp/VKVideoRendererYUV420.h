@@ -17,7 +17,8 @@ public:
 
     void render() override;
 
-    void draw(uint8_t *buffer, size_t length, size_t width, size_t height, float rotation, bool mirror) override;
+    void draw(uint8_t *buffer, size_t length, size_t width, size_t height, float rotation,
+              bool mirror) override;
 
     void setParameters(uint32_t params) override;
 

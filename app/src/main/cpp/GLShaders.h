@@ -3,7 +3,7 @@
 
 // Vertex shader.
 static const char kVertexShader[] =
-    "#version 100\n\
+        "#version 100\n\
     varying vec2 v_texcoord; \
     attribute vec4 position; \
     attribute vec4 texcoord; \
@@ -17,14 +17,16 @@ static const char kVertexShader[] =
 
 // Pixel shader, YUV420 to RGB conversion.
 static const char kFragmentShader[] =
-    "#version 100\n \
+        "#version 100\n \
     precision highp float; \
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
     uniform lowp sampler2D s_textureU;\
     uniform lowp sampler2D s_textureV;\
+    uniform float u_threshold;\
+\
     void main() {\
-        float y, u, v, r, g, b;\
+        float y, u, v, r, g, b, brightness;\
         y = texture2D(s_textureY, v_texcoord).r;\
         u = texture2D(s_textureU, v_texcoord).r;\
         v = texture2D(s_textureV, v_texcoord).r;\
@@ -33,12 +35,43 @@ static const char kFragmentShader[] =
         r = y + 1.403 * v;\
         g = y - 0.344 * u - 0.714 * v;\
         b = y + 1.770 * u;\
+brightness = (r + g + b) / 3.0;\
+    if (brightness < u_threshold) {\
+        gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0); /* green */ \
+    } else {\
         gl_FragColor = vec4(r, g, b, 1.0);\
+    }\
     }";
+
+// causes all pixels to be green under a threshold set by slider bar
+static const char kFragmentShader0[] =
+        "#version 100\n \
+precision highp float; \
+varying vec2 v_texcoord;\
+uniform lowp sampler2D s_textureY;\
+uniform lowp sampler2D s_textureU;\
+uniform lowp sampler2D s_textureV;\
+uniform float u_threshold;\
+void main() {\
+    float y, u, v, r, g, b,  brightness;\
+u_threshold = .3;\
+    y = texture2D(s_textureY, v_texcoord).r;\
+    u = texture2D(s_textureU, v_texcoord).r - 0.5;\
+    v = texture2D(s_textureV, v_texcoord).r - 0.5;\
+    r = y + 1.403 * v;\
+    g = y - 0.344 * u - 0.714 * v;\
+    b = y + 1.770 * u;\
+    brightness = (r + g + b) / 3.0;\
+    if (brightness < .3) {\
+        gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0); /* green */ \
+    } else {\
+        gl_FragColor = vec4(r, g, b, 1.0);\
+    }\
+}";
 
 // Blur Filter
 static const char kFragmentShader1[] =
-    "#version 100\n \
+        "#version 100\n \
     precision highp float; \
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -69,7 +102,7 @@ static const char kFragmentShader1[] =
 
 // Swirl Filter
 static const char kFragmentShader2[] =
-    "#version 100\n\
+        "#version 100\n\
     precision highp float; \
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -105,7 +138,7 @@ static const char kFragmentShader2[] =
 
 // Magnifying Glass Filter
 static const char kFragmentShader3[] =
-    "#version 100\n \
+        "#version 100\n \
     precision highp float; \
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -159,7 +192,7 @@ static const char kFragmentShader3[] =
 
 // Fish Eye Filter
 static const char kFragmentShader4[] =
-    "#version 100\n\
+        "#version 100\n\
     precision highp float;\
     const float PI = 3.1415926535;\
     varying vec2 v_texcoord;\
@@ -197,7 +230,7 @@ static const char kFragmentShader4[] =
 
 // Lichtenstein-esque Filter
 static const char kFragmentShader5[] =
-    "#version 100\n\
+        "#version 100\n\
     precision highp float;\
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -230,7 +263,7 @@ static const char kFragmentShader5[] =
 
 // Triangles mosaic Filter
 static const char kFragmentShader6[] =
-    "#version 100\n\
+        "#version 100\n\
     precision highp float;\
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -262,7 +295,7 @@ static const char kFragmentShader6[] =
 
 // Pixelation Filter
 static const char kFragmentShader7[] =
-    "#version 100\n\
+        "#version 100\n\
     precision highp float;\
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -290,7 +323,7 @@ static const char kFragmentShader7[] =
 
 // Cross Stitching Filter
 static const char kFragmentShader8[] =
-    "#version 100\n\
+        "#version 100\n\
     precision highp float;\
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -342,7 +375,7 @@ static const char kFragmentShader8[] =
 
 // Toonify Filter
 static const char kFragmentShader9[] =
-    "#version 100\n \
+        "#version 100\n \
     precision highp float; \
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -512,7 +545,7 @@ static const char kFragmentShader9[] =
 
 // Predator Thermal Vision Filter
 static const char kFragmentShader10[] =
-    "#version 100\n\
+        "#version 100\n\
     precision highp float;\
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -542,7 +575,7 @@ static const char kFragmentShader10[] =
 
 // Emboss Filter
 static const char kFragmentShader11[] =
-    "#version 100\n \
+        "#version 100\n \
     precision highp float; \
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\
@@ -573,7 +606,7 @@ static const char kFragmentShader11[] =
 
 // Edge Detection Filter
 static const char kFragmentShader12[] =
-    "#version 100\n \
+        "#version 100\n \
     precision highp float; \
     varying vec2 v_texcoord;\
     uniform lowp sampler2D s_textureY;\

@@ -25,6 +25,15 @@ public class SimpleGestureFilter extends GestureDetector.SimpleOnGestureListener
         mDetector.onTouchEvent(event);
     }
 
+//    @Override
+//    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+//        float delta = e2.getX() - e1.getX();
+//        float normalized = Math.max(-1f, Math.min(1f, delta / (500f))); // Use screen width or other logic
+//        System.out.println("    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) normalized  = "+normalized);
+//        mListener.onScrollIntensity(normalized);
+//        return true;
+//    }
+
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
@@ -54,5 +63,6 @@ public class SimpleGestureFilter extends GestureDetector.SimpleOnGestureListener
     public interface SimpleGestureListener {
         void onSwipe(SwipeDirection direction);
         void onDoubleTap();
+//        void onScrollIntensity(float normalized);  // <- callback to GLActivity
     }
 }

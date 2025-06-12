@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
+import android.widget.SeekBar;
 
 import com.media.camera.preview.R;
 import com.media.camera.preview.controller.CameraController;
@@ -25,9 +27,20 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
             Manifest.permission.CAMERA
     };
 
+    public native void nativeSetFilterIntensity(float value);
+
+//    @Override
+//    public void onScrollIntensity(float normalized) {
+//        System.out.println("onscrollInTentCities normalized equals "+normalized);
+//        nativeSetFilterIntensity(normalized); // Your JNI bridge
+//    }
+
     private GLVideoRenderer mVideoRenderer;
     private ErrorDialog mErrorDialog;
     private int mFilter = 0;
+
+    public native void nativeInitRenderer();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +52,21 @@ public class GLActivity extends BaseActivity implements ActivityCompat.OnRequest
         mVideoRenderer.init(glSurfaceView);
 
         mCameraController = new CameraController(this, mVideoRenderer);
+        SeekBar slider = findViewById(R.id.slider_filter);
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float intensity = progress / 100.0f;  // convert 0–100 to 0.0–1.0
+                nativeSetFilterIntensity(intensity);
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
 
         setup(glSurfaceView);
+        nativeInitRenderer();  // <-- this is critical
+
     }
 
     @Override

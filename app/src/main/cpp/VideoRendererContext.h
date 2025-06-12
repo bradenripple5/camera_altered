@@ -21,7 +21,8 @@ public:
 
     void render();
 
-    void draw(uint8_t *buffer, size_t length, size_t width, size_t height, float rotation, bool mirror);
+    void
+    draw(uint8_t *buffer, size_t length, size_t width, size_t height, float rotation, bool mirror);
 
     void setParameters(uint32_t params);
 

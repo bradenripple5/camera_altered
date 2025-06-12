@@ -27,12 +27,14 @@ public:
 
     static std::unique_ptr<VideoRenderer> create(int type);
 
-    virtual void init(ANativeWindow *window, AAssetManager *assetManager, size_t width, size_t height) = 0;
+    virtual void
+    init(ANativeWindow *window, AAssetManager *assetManager, size_t width, size_t height) = 0;
 
     virtual void render() = 0;
 
     virtual void
-    draw(uint8_t *buffer, size_t length, size_t width, size_t height, float rotation, bool mirror) = 0;
+    draw(uint8_t *buffer, size_t length, size_t width, size_t height, float rotation,
+         bool mirror) = 0;
 
     virtual void setParameters(uint32_t params) = 0;
 

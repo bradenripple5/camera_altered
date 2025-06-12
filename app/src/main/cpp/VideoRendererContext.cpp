@@ -9,7 +9,8 @@ VideoRendererContext::VideoRendererContext(int type) {
 
 VideoRendererContext::~VideoRendererContext() = default;
 
-void VideoRendererContext::init(ANativeWindow *window, AAssetManager *assetManager, size_t width, size_t height) {
+void VideoRendererContext::init(ANativeWindow *window, AAssetManager *assetManager, size_t width,
+                                size_t height) {
     m_pVideoRenderer->init(window, assetManager, width, height);
 }
 
@@ -61,7 +62,8 @@ void VideoRendererContext::deleteContext(JNIEnv *env, jobject obj) {
         return;
     }
 
-    auto *context = reinterpret_cast<VideoRendererContext *>(env->GetLongField(obj, jni_fields.context));
+    auto *context = reinterpret_cast<VideoRendererContext *>(env->GetLongField(obj,
+                                                                               jni_fields.context));
 
     delete context;
 
@@ -74,7 +76,8 @@ VideoRendererContext *VideoRendererContext::getContext(JNIEnv *env, jobject obj)
         return nullptr;
     }
 
-    auto *context = reinterpret_cast<VideoRendererContext *>(env->GetLongField(obj, jni_fields.context));
+    auto *context = reinterpret_cast<VideoRendererContext *>(env->GetLongField(obj,
+                                                                               jni_fields.context));
 
     return context;
 }

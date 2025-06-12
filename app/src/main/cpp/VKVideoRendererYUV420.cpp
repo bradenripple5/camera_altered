@@ -262,7 +262,7 @@ VKVideoRendererYUV420::createDevice(ANativeWindow *platformWindow, VkApplication
     vkGetPhysicalDeviceQueueFamilyProperties(m_deviceInfo.physicalDevice, &queueFamilyCount,
                                              nullptr);
     assert(queueFamilyCount);
-    std::vector <VkQueueFamilyProperties> queueFamilyProperties(queueFamilyCount);
+    std::vector<VkQueueFamilyProperties> queueFamilyProperties(queueFamilyCount);
     vkGetPhysicalDeviceQueueFamilyProperties(m_deviceInfo.physicalDevice, &queueFamilyCount,
                                              queueFamilyProperties.data());
 
@@ -320,7 +320,7 @@ void VKVideoRendererYUV420::createSwapChain() {
     vkGetPhysicalDeviceSurfaceFormatsKHR(m_deviceInfo.physicalDevice, m_deviceInfo.surface,
                                          &formatCount, nullptr);
 
-    std::unique_ptr < VkSurfaceFormatKHR[] > formats = std::make_unique<VkSurfaceFormatKHR[]>(
+    std::unique_ptr<VkSurfaceFormatKHR[]> formats = std::make_unique<VkSurfaceFormatKHR[]>(
             formatCount);
 
     vkGetPhysicalDeviceSurfaceFormatsKHR(m_deviceInfo.physicalDevice, m_deviceInfo.surface,

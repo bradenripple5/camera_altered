@@ -12,7 +12,8 @@ JCMCPRV(void, destroy)(JNIEnv *env, jobject obj) {
     VideoRendererContext::deleteContext(env, obj);
 }
 
-JCMCPRV(void, init)(JNIEnv *env, jobject obj, jobject surface, jobject assetManager, jint width, jint height) {
+JCMCPRV(void, init)(JNIEnv *env, jobject obj, jobject surface, jobject assetManager, jint width,
+                    jint height) {
     VideoRendererContext *context = VideoRendererContext::getContext(env, obj);
 
     ANativeWindow *window = surface ? ANativeWindow_fromSurface(env, surface) : nullptr;
@@ -36,7 +37,9 @@ JCMCPRV(void, draw)(JNIEnv *env, jobject obj, jbyteArray data, jint width, jint 
 
     VideoRendererContext *context = VideoRendererContext::getContext(env, obj);
 
-    if (context) context->draw((uint8_t *) bufferPtr, (size_t) arrayLength, (size_t) width, (size_t) height, rotation, mirror);
+    if (context)
+        context->draw((uint8_t *) bufferPtr, (size_t) arrayLength, (size_t) width, (size_t) height,
+                      rotation, mirror);
 
     env->ReleaseByteArrayElements(data, bufferPtr, 0);
 }

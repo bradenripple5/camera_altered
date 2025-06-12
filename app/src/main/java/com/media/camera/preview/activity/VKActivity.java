@@ -1,6 +1,7 @@
 package com.media.camera.preview.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import com.media.camera.preview.R;
@@ -41,6 +42,12 @@ public class VKActivity extends BaseActivity {
         mCameraController.stopCamera();
         super.onPause();
     }
+//    @Override
+//    public void onScrollIntensity(float intensity) {
+//        // You can log it or forward it to JNI here
+//        Log.d("VKActivity", "Scroll intensity: " + intensity);
+//    }
+
 
     @Override
     public void onSwipe(SwipeDirection direction) {

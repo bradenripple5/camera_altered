@@ -22,6 +22,7 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
+        ${SRC_DIR}/GLActivityJNI.cpp
         ${SRC_DIR}/VideoRenderer.cpp
         ${SRC_DIR}/VideoRendererContext.cpp
         ${SRC_DIR}/VideoRendererJNI.cpp
