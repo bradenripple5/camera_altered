@@ -11,6 +11,7 @@ in C++ with OpenGL ES/Vulkan using NDK and JNI.
 - Double tap to switch camera.
 
 <br />
+you can see a demo here
 <div class="centered">
   <iframe width="560" height="315" src="https://www.youtube.com/shorts/uUrssDSh1vA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
