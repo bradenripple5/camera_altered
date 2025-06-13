@@ -10,3 +10,5 @@
 extern GLVideoRendererYUV420Filter* g_renderer;
 
 #endif //CAMERA2GLPREVIEW_RENDERERGLOBALS_H
+
+

@@ -10,9 +10,9 @@
 GLVideoRendererYUV420Filter::GLVideoRendererYUV420Filter() {
     g_renderer = this;
     LOGE("g_renderer assigned inside GLVideoRendererYUV420Filter constructor: %p", g_renderer);
+    m_fragmentShader.push_back(kFragmentShader);
 
     m_fragmentShader.push_back(kFragmentShader0);
-    m_fragmentShader.push_back(kFragmentShader);
     m_fragmentShader.push_back(kFragmentShader1);
     m_fragmentShader.push_back(kFragmentShader2);
     m_fragmentShader.push_back(kFragmentShader3);
@@ -59,7 +59,8 @@ void GLVideoRendererYUV420Filter::render() {
 
     glUseProgram(m_program);
     GLint intensityHandle = glGetUniformLocation(m_program, "u_threshold");
-    LOGE("render called on %p | intensityHandle = %d | m_intensity = %f", this, intensityHandle, m_intensity);
+    LOGE("render called on %p | intensityHandle = %d | m_intensity = %f", this, intensityHandle,
+         m_intensity);
     glUniform1f(intensityHandle, m_intensity);
 
     GLVideoRendererYUV420::render();
