@@ -12,7 +12,7 @@ in C++ with OpenGL ES/Vulkan using NDK and JNI.
 
 <br />
 <div class="centered">
-<img src="/screenshots/camera-preview.gif?raw=true" width="400" alt="">
+  <iframe width="560" height="315" src="https://www.youtube.com/shorts/uUrssDSh1vA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## License
